@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REVITALIZE - Lavagem e Estética Automotiva</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        :root {
+            --primary-color: #1e1e1e;
+            --secondary-color: #333333;
+            --accent-color: #0096c7;
+            --light-gray: #f7f7f7;
+            --medium-gray: #e0e0e0;
+            --dark-gray: #777;
+            --text-color: #333;
+        }
+        
+        body {
+            background-color: var(--light-gray);
+            color: var(--text-color);
+            line-height: 1.6;
+            position: relative;
+        }
+        
+        .watermark {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.03;
+            z-index: -1;
+            width: 70%;
+            height: auto;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0;
+            background-color: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            position: relative;
+            z-index: 1;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0 50px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            position: relative;
+        }
+        
+        .logo-container {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .logo-placeholder {
+            font-size: 0.9rem;
+            text-align: center;
+            color: var(--dark-gray);
+            padding: 10px;
+        }
+        
+        .company-name {
+            font-size: 3.2rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+        
+        .header-decoration {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background-color: var(--accent-color);
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 0);
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .intro {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 0 40px;
+        }
+        
+        .intro p {
+            font-size: 1.1rem;
+            color: var(--dark-gray);
+        }
+        
+        .menu-section {
+            margin-bottom: 50px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+        
+        .menu-section:last-child {
+            border-bottom: none;
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title::before {
+            content: '';
+            height: 40px;
+            width: 5px;
+            background-color: var(--accent-color);
+            margin-right: 15px;
+            border-radius: 5px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100px;
+            height: 3px;
+            background-color: var(--medium-gray);
+        }
+        
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .menu-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid var(--medium-gray);
+        }
+        
+        .menu-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 20px;
+            position: relative;
+        }
+        
+        .card-body {
+            padding: 20px;
+        }
+        
+        .item-name {
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .item-icon {
+            margin-right: 10px;
+            color: var(--accent-color);
+        }
+        
+        .item-price {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--accent-color);
+        }
+        
+        .item-description {
+            font-size: 0.95rem;
+            color: var(--dark-gray);
+            margin-top: 10px;
+            line-height: 1.5;
+        }
+        
+        .special-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            box-shadow: 0 3px 8px rgba(0, 150, 199, 0.3);
+        }
+        
+        .popular .card-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .contact-info {
+            margin-top: 20px;
+            font-size: 0.95rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .contact-info div {
+            display: flex;
+            align-items: center;
+        }
+        
+        .contact-info i {
+            margin-right: 8px;
+            color: var(--accent-color);
+        }
+        
+        .promo-banner {
+            background: linear-gradient(135deg, #333 0%, #111 100%);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin: 40px 0;
+            border-radius: 8px;
+        }
+        
+        .promo-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--accent-color);
+        }
+        
+        .schedule-btn {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .schedule-btn:hover {
+            background-color: #007a9e;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px;
+            }
+            
+            .company-name {
+                font-size: 2.5rem;
+            }
+            
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .logo-container {
+                width: 120px;
+                height: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Marca d'água (Logo) -->
+    <svg class="watermark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+        <path fill="#333" d="M336 448H80c-8.8 0-16-7.2-16-16V80c0-8.8 7.2-16 16-16h156.6c3.3 0 6.5 1.3 8.9 3.7l99.8 99.8c2.4 2.4 3.7 5.6 3.7 8.9V432c0 8.8-7.2 16-16 16zM80 64C71.2 64 64 71.2 64 80v352c0 8.8 7.2 16 16 16h256c8.8 0 16-7.2 16-16V176c0-3.3-1.3-6.5-3.7-8.9L248.5 67.3c-2.4-2.4-5.6-3.7-8.9-3.7L80 64zM444.9 68.1c-2.6-6.2-8.8-10.1-15.5-10.1H344c-4.4 0-8 3.6-8 8v96c0 4.4 3.6 8 8 8h45.3l49.2 49.2c3.1 3.1 8.2 3.1 11.3 0l45.3-45.3c3.1-3.1 3.1-8.2 0-11.3l-49.2-49.2v-45.3zM352 64h77.3c6.8 0 12.8 4.1 15.5 10.4l-92.9 92.9V64h.1zM368 464c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V80c0-8.8 7.2-16 16-16h144c4.4 0 8 3.6 8 8s-3.6 8-8 8H80v384h272c4.4 0 8 3.6 8 8s-3.6 8-8 8h-16z"/>
+        <path fill="#333" d="M426.7 341.3c-1.9-4.5-6.3-7.3-11.1-7.3H304c-6.7 0-12.1 5.4-12.1 12.1v111.5c0 4.9 2.9 9.3 7.3 11.1 1.5.6 3 .9 4.5.9 3.2 0 6.3-1.2 8.5-3.5l49.2-49.2 49.2 49.2c2.2 2.2 5.3 3.5 8.5 3.5 1.5 0 3.1-.3 4.5-.9 4.5-1.9 7.3-6.3 7.3-11.1V346.1c.1-1.6-.2-3.2-.9-4.8zM414.5 448l-49.2-49.2c-4.7-4.7-12.3-4.7-17 0L299.2 448V346.1c0-2.7 2.2-4.9 4.9-4.9h111.5c2.7 0 4.9 2.2 4.9 4.9V448z"/>
+    </svg>
+
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <div class="logo-placeholder">
+                    <img src="/logo.jpg" alt="" srcset="">
+                    <p>Insira sua logo aqui</p>
+                    <p>Tamanho recomendado: 150x150px</p>
+                </div>
+            </div>
+            <div class="company-name">REVITALIZE</div>
+            <div class="subtitle">Lavagem & Estética Automotiva Premium</div>
+            <div class="header-decoration"></div>
+        </header>
+
+        <div class="content">
+            <div class="intro">
+                <p>Conheça nossos serviços exclusivos de estética automotiva. Utilizamos produtos de alta qualidade e tecnologia avançada para proporcionar o melhor tratamento para seu veículo.</p>
+            </div>
+
+            <div class="menu-section">
+                <h2 class="section-title">Lavagens Básicas</h2>
+                
+                <div class="menu-grid">
+                    <div class="menu-card">
+                        <div class="card-header">
+                            <div class="item-name">
+                                <span><i class="fas fa-car-wash item-icon"></i> Lavagem Simples</span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="item-description">Lavagem externa com shampoo automotivo premium, secagem cuidadosa e aspiração interna básica.</div>
+                            <div class="item-price">R$ 40,00</div>
+                            <button class="schedule-btn" data-service="Lavagem Simples">Agendar</button>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-card popular">
+                        <div class="card-header">
+                            <div class="item-name">
+                                <span><i class="fas fa-car-side item-icon"></i> Lavagem Básica Plus</span>
+                            </div>
+                            <div class="special-badge">POPULAR</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="item-description">Lavagem externa completa, secagem, aspiração interna completa e limpeza do painel com produtos especiais.</div>
+                            <div class="item-price">R$ 60,00</div>
+                            <button class="schedule-btn" data-service="Lavagem Básica Plus">Agendar</button>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-card">
+                        <div class="card-header">
+                            <div class="item-name">
+                                <span><i class="fas fa-truck item-icon"></i> Lavagem SUVs/Vans</span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="item-description">Lavagem externa e interna básica especializada para veículos de grande porte, com cuidados específicos.</div>
+                            <div class="item-price">R$ 70,00</div>
+                            <button class="schedule-btn" data-service="Lavagem SUVs/Vans">Agendar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-section">
+                <h2 class="section-title">Lavagens Premium</h2>
+                
+                <div class="menu-grid">
+                    <div class="menu-card">
+                        <div class="card-header">
+                            <div class="item-name">
+                                <span><i class="fas fa-car item-icon"></i> Lavagem Completa</span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="item-description">Lavagem externa detalhada, secagem profissional, aspiração completa, limpeza interna de vidros e painéis.</div>
+                            <div class="item-price">R$ 80,00</div>
+                            <button class="schedule-btn" data-service="Lavagem Completa">Agendar</button>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-card popular">
+                        <div class="card-header">
+                            <div class="item-name">
+                                <span><i class="fas fa-tachometer-alt item-icon"></i> Lavagem Premium</span>
+                            </div>
+                            <div class="special-badge">DESTAQUE</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="item-description">Lavagem completa com aplicação de cera protetora de alto brilho, limpeza de rodas, pneus e compartimento do motor.</div>
+                            <div class="item-price">R$ 110,00</div>
+                            <button class="schedule-btn" data-service="Lavagem Premium">Agendar</button>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-card">
+                        <div class="card-header">
+                            <div class="item-name">
+                                <span><i class="fas fa-crown item-icon"></i> Lavagem Executiva</span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="item-description">Nossa lavagem mais completa com hidratação de couro e plásticos, limpeza profunda de carpetes e proteção UV.</div>
+                            <div class="item-price">R$ 150,00</div>
+                            <button class="schedule-btn" data-service="Lavagem Executiva">Agendar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="promo-banner">
+                <div class="promo-title">OFERTA ESPECIAL</div>
+                <p>Agende 3 lavagens Premium e ganhe 1 aplicação de cera grátis!</p>
+            </div>
+
+            <div class="menu-section">
+                <h2 class="section-title">Serviços de Estética</h2>
+                
+                <div class="menu-grid">
+                    <div class="menu-card">
+                        <div class="card-header">
+                            <div class="item-name">
+                                <span><i class="fas fa-spray-can item-icon"></i> Polimento</span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="item-description">Polimento profissional em 3 etapas para remoção de arranhões superficiais e restauração do brilho original.</div>
+                            <div class="item-price">R$ 180,00</div>
+                            <button class="schedule-btn" data-service="Polimento">Agendar</button>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-card">
+                        <div class="card-header">
+                            <div class="item-name">
+                                <span><i class="fas fa-gem item-icon"></i> Cristalização</span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="item-description">Aplicação de cera cristalizadora de alta durabilidade para proteção prolongada da pintura (até 6 meses).</div>
+                            <div class="item-price">R$ 160,00</div>
+                            <button class="schedule-btn" data-service="Cristalização">Agendar</button>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-card popular">
+                        <div class="card-header">
+                            <div class="item-name">
+                                <span><i class="fas fa-magic item-icon"></i> Espelhamento</span>
+                            </div>
+                            <div class="special-badge">PREMIUM</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="item-description">Tratamento completo com polimento técnico para efeito de espelho na pintura e proteção duradoura de até 12 meses.</div>
+                            <div class="item-price">R$ 250,00</div>
+                            <button class="schedule-btn" data-service="Espelhamento">Agendar</button>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-card">
+                        <div class="card-header">
+                            <div class="item-name">
+                                <span><i class="fas fa-wind item-icon"></i> Higienização de A/C</span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="item-description">Limpeza completa do sistema de ar condicionado com produtos antibacterianos e anti-ácaros, eliminando odores.</div>
+                            <div class="item-price">R$ 100,00</div>
+                            <button class="schedule-btn" data-service="Higienização de A/C">Agendar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-section">
+                <h2 class="section-title">Pacotes Especiais</h2>
+                
+                <div class="menu-grid">
+                    <div class="menu-card">
+                        <div class="card-header">
+                            <div class="item-name">
+                                <span><i class="fas fa-tag item-icon"></i> Combo Básico</span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="item-description">4 lavagens simples por mês com desconto especial. Ideal para manter seu carro sempre limpo.</div>
+                            <div class="item-price">R$ 140,00</div>
+                            <button class="schedule-btn" data-service="Combo Básico">Agendar</button>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-card">
+                        <div class="card-header">
+                            <div class="item-name">
+                                <span><i class="fas fa-award item-icon"></i> Combo Premium</span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="item-description">4 lavagens completas por mês com aplicação de cera gratuita na última lavagem do mês.</div>
+                            <div class="item-price">R$ 280,00</div>
+                            <button class="schedule-btn" data-service="Combo Premium">Agendar</button>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-card popular">
+                        <div class="card-header">
+                            <div class="item-name">
+                                <span><i class="fas fa-star item-icon"></i> Revitalização Total</span>
+                            </div>
+                            <div class="special-badge">MELHOR CUSTO-BENEFÍCIO</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="item-description">Tratamento completo com polimento, cristalização, higienização interna detalhada e limpeza do motor.</div>
+                            <div class="item-price">R$ 450,00</div>
+                            <button class="schedule-btn" data-service="Revitalização Total">Agendar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2025 REVITALIZE - Lavagem e Estética Automotiva Premium. Todos os direitos reservados.</p>
+            <div class="contact-info">
+                <div><i class="fas fa-phone"></i> (11) 99999-9999</div>
+                <div><i class="fas fa-envelope"></i> contato@revitalize.com.br</div>
+                <div><i class="fas fa-map-marker-alt"></i> Rua das Lavagens, 123 - São Paulo, SP</div>
+                <div><i class="fas fa-clock"></i> Seg-Sáb: 8h às 19h | Dom: 9h às 14h</div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        document.querySelectorAll('.schedule-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const serviceName = this.getAttribute('data-service');
+                const clientName = prompt("Qual é o seu nome?");
+                const date = prompt("Qual dia você deseja agendar? (ex.: 10/04/2025)");
+                const time = prompt("Qual horário? (ex.: 14:00)");
+
+                if (clientName && date && time) {
+                    const message = `Olá, gostaria de agendar o serviço *${serviceName}*.\nNome: ${clientName}\nData: ${date}\nHorário: ${time}`;
+                    const phoneNumber = "5511999999999"; // Substitua pelo número real com DDD, sem símbolos
+                    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+                    window.open(whatsappUrl, '_blank');
+                } else {
+                    alert("Por favor, preencha todas as informações para agendar!");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
