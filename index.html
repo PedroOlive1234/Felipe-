@@ -64,18 +64,31 @@
         }
         
         .logo-container {
-            width: 150px;
-            height: 150px;
+            width: 20%;
+            max-width: 150px;
             margin: 0 auto 20px;
-            background-color: white;
+           
             display: flex;
             justify-content: center;
             align-items: center;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             position: relative;
             overflow: hidden;
+            aspect-ratio: 1 / 1;
         }
-        
+
+        .logo-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .logo-container {
+                width: 30%;
+                max-width: 120px;
+            }
+        }
         .logo-placeholder {
             font-size: 0.9rem;
             text-align: center;
@@ -329,9 +342,9 @@
 
     <div class="container">
         <header>
-                <div class="logo-placeholder">
-                    <img src="/logo.png" alt="" srcset="">
-                </div>
+            <div class="logo-container">
+                <img src="/logo.png" alt="Logo Revitalize">
+            </div>
            
         </header>
 
