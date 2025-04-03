@@ -539,57 +539,70 @@
     </div>
 
     <script>
-        const modal = document.getElementById('scheduleModal');
-        const form = document.getElementById('scheduleForm');
-        let currentService = '';
+      const modal = document.getElementById('scheduleModal');
+const form = document.getElementById('scheduleForm');
+let currentService = '';
 
-        // Abrir o modal ao clicar em "Agendar"
-        document.querySelectorAll('.schedule-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                currentService = this.getAttribute('data-service');
-                modal.style.display = 'flex';
-            });
-        });
+// Mapear os serviços para seus respectivos preços
+const servicePrices = {
+    'Lavagem Simples': 'R$ 40,00',
+    'Lavagem SUVs/Caminhonetes': 'R$ 60,00',
+    'Lavagem Completa': 'R$ 60,00',
+    'Lavagem Completa SUVs/Caminhonetes': 'R$ 80,00',
+    'Lavagem Premium': 'R$ 299,99',
+    'Lavagem Premium SUVs/Caminhonetes': 'R$ 399,99'
+};
 
-        // Fechar o modal ao clicar no "X"
-        document.querySelector('.close-btn').addEventListener('click', function() {
-            modal.style.display = 'none';
-            form.reset();
-        });
+// Abrir o modal ao clicar em "Agendar"
+document.querySelectorAll('.schedule-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        currentService = this.getAttribute('data-service');
+        modal.style.display = 'flex';
+    });
+});
 
-        // Fechar o modal ao clicar fora dele
-        window.addEventListener('click', function(event) {
-            if (event.target === modal) {
-                modal.style.display = 'none';
-                form.reset();
-            }
-        });
+// Fechar o modal ao clicar no "X"
+document.querySelector('.close-btn').addEventListener('click', function() {
+    modal.style.display = 'none';
+    form.reset();
+});
 
-        // Enviar a mensagem ao submeter o formulário
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
+// Fechar o modal ao clicar fora dele
+window.addEventListener('click', function(event) {
+    if (event.target === modal) {
+        modal.style.display = 'none';
+        form.reset();
+    }
+});
 
-            const clientName = document.getElementById('clientName').value;
-            const scheduleDate = document.getElementById('scheduleDate').value;
-            const scheduleTime = document.getElementById('scheduleTime').value;
-            const contactPerson = document.getElementById('contactPerson').value;
+// Enviar a mensagem ao submeter o formulário
+form.addEventListener('submit', function(event) {
+    event.preventDefault();
 
-            if (clientName && scheduleDate && scheduleTime && contactPerson) {
-                // Converter a data para o formato DD/MM/YYYY
-                const dateParts = scheduleDate.split('-');
-                const formattedDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
+    const clientName = document.getElementById('clientName').value;
+    const scheduleDate = document.getElementById('scheduleDate').value;
+    const scheduleTime = document.getElementById('scheduleTime').value;
+    const contactPerson = document.getElementById('contactPerson').value;
 
-                const message = `Olá, gostaria de agendar o serviço *${currentService}*.\nNome: ${clientName}\nData: ${formattedDate}\nHorário: ${scheduleTime}`;
-                const whatsappUrl = `https://wa.me/${contactPerson}?text=${encodeURIComponent(message)}`;
-                window.open(whatsappUrl, '_blank');
+    if (clientName && scheduleDate && scheduleTime && contactPerson) {
+        // Converter a data para o formato DD/MM/YYYY
+        const dateParts = scheduleDate.split('-');
+        const formattedDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
+        
+        // Obter o preço do serviço atual
+        const servicePrice = servicePrices[currentService] || 'Preço a consultar';
+        
+        const message = `Olá, gostaria de agendar o serviço *${currentService}*.\nPreço: *${servicePrice}*\nNome: ${clientName}\nData: ${formattedDate}\nHorário: ${scheduleTime}`;
+        const whatsappUrl = `https://wa.me/${contactPerson}?text=${encodeURIComponent(message)}`;
+        window.open(whatsappUrl, '_blank');
 
-                // Fechar o modal e resetar o formulário
-                modal.style.display = 'none';
-                form.reset();
-            } else {
-                alert("Por favor, preencha todos os campos!");
-            }
-        });
+        // Fechar o modal e resetar o formulário
+        modal.style.display = 'none';
+        form.reset();
+    } else {
+        alert("Por favor, preencha todos os campos!");
+    }
+});
     </script>
 </body>
 </html>
