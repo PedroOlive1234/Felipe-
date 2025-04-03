@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+    <!-- Mesmos meta tags e links -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>REVITALIZE - Lavagem e Estética Automotiva</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
+        /* Manter os mesmos estilos */
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap');
         
         * {
@@ -404,7 +406,7 @@
                                 Lavagem externa com shampoo automotivo premium, secagem cuidadosa e aspiração interna básica
                             </div>
                             <div class="item-price">R$ 40,00</div>
-                            <button class="schedule-btn" data-service="Lavagem Básica Plus">Agendar</button>
+                            <button class="schedule-btn" data-service="Lavagem Simples">Agendar</button>
                         </div>
                     </div>
                     
@@ -417,7 +419,7 @@
                         <div class="card-body">
                             <div class="item-description">Lavagem externa e interna básica especializada para veículos de grande porte, com cuidados específicos.</div>
                             <div class="item-price">R$ 60,00</div>
-                            <button class="schedule-btn" data-service="Lavagem SUVs/Vans">Agendar</button>
+                            <button class="schedule-btn" data-service="Lavagem SUVs/Caminhonetes">Agendar</button>
                         </div>
                     </div>
                 </div>
@@ -450,7 +452,7 @@
                         <div class="card-body">
                             <div class="item-description">Lavagem completa com aplicação de cera protetora de alto brilho, limpeza de rodas, pneus.</div>
                             <div class="item-price">R$ 80,00</div>
-                            <button class="schedule-btn" data-service="Lavagem Premium">Agendar</button>
+                            <button class="schedule-btn" data-service="Lavagem Completa SUVs/Caminhonetes">Agendar</button>
                         </div>
                     </div>
                   
@@ -470,7 +472,7 @@
                         <div class="card-body">
                             <div class="item-description">Lavagem externa completa com aplicação de cera e revitalização de plásticos, higienização interna completa (bancos, carpete e forro de teto), aspiração interna e limpeza do painel com produtos especiais.</div>
                             <div class="item-price">R$ 299,99</div>
-                            <button class="schedule-btn" data-service="Lavagem Completa">Agendar</button>
+                            <button class="schedule-btn" data-service="Lavagem Premium">Agendar</button>
                         </div>
                     </div>
                     
@@ -484,7 +486,7 @@
                         <div class="card-body">
                             <div class="item-description">Lavagem externa completa com aplicação de cera e revitalização de plásticos, higienização interna completa (bancos, carpete e forro de teto), aspiração interna e limpeza do painel com produtos especiais.</div>
                             <div class="item-price">R$ 399,99</div>
-                            <button class="schedule-btn" data-service="Lavagem Premium">Agendar</button>
+                            <button class="schedule-btn" data-service="Lavagem Premium SUVs/Caminhonetes">Agendar</button>
                         </div>
                     </div>
                   
@@ -539,70 +541,57 @@
     </div>
 
     <script>
-      const modal = document.getElementById('scheduleModal');
-const form = document.getElementById('scheduleForm');
-let currentService = '';
+        const modal = document.getElementById('scheduleModal');
+        const form = document.getElementById('scheduleForm');
+        let currentService = '';
 
-// Mapear os serviços para seus respectivos preços
-const servicePrices = {
-    'Lavagem Simples': 'R$ 40,00',
-    'Lavagem SUVs/Caminhonetes': 'R$ 60,00',
-    'Lavagem Completa': 'R$ 60,00',
-    'Lavagem Completa SUVs/Caminhonetes': 'R$ 80,00',
-    'Lavagem Premium': 'R$ 299,99',
-    'Lavagem Premium SUVs/Caminhonetes': 'R$ 399,99'
-};
+        // Abrir o modal ao clicar em "Agendar"
+        document.querySelectorAll('.schedule-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                currentService = this.getAttribute('data-service');
+                modal.style.display = 'flex';
+            });
+        });
 
-// Abrir o modal ao clicar em "Agendar"
-document.querySelectorAll('.schedule-btn').forEach(button => {
-    button.addEventListener('click', function() {
-        currentService = this.getAttribute('data-service');
-        modal.style.display = 'flex';
-    });
-});
+        // Fechar o modal ao clicar no "X"
+        document.querySelector('.close-btn').addEventListener('click', function() {
+            modal.style.display = 'none';
+            form.reset();
+        });
 
-// Fechar o modal ao clicar no "X"
-document.querySelector('.close-btn').addEventListener('click', function() {
-    modal.style.display = 'none';
-    form.reset();
-});
+        // Fechar o modal ao clicar fora dele
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+                form.reset();
+            }
+        });
 
-// Fechar o modal ao clicar fora dele
-window.addEventListener('click', function(event) {
-    if (event.target === modal) {
-        modal.style.display = 'none';
-        form.reset();
-    }
-});
+        // Enviar a mensagem ao submeter o formulário
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
 
-// Enviar a mensagem ao submeter o formulário
-form.addEventListener('submit', function(event) {
-    event.preventDefault();
+            const clientName = document.getElementById('clientName').value;
+            const scheduleDate = document.getElementById('scheduleDate').value;
+            const scheduleTime = document.getElementById('scheduleTime').value;
+            const contactPerson = document.getElementById('contactPerson').value;
 
-    const clientName = document.getElementById('clientName').value;
-    const scheduleDate = document.getElementById('scheduleDate').value;
-    const scheduleTime = document.getElementById('scheduleTime').value;
-    const contactPerson = document.getElementById('contactPerson').value;
+            if (clientName && scheduleDate && scheduleTime && contactPerson) {
+                // Converter a data para o formato DD/MM/YYYY
+                const dateParts = scheduleDate.split('-');
+                const formattedDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
 
-    if (clientName && scheduleDate && scheduleTime && contactPerson) {
-        // Converter a data para o formato DD/MM/YYYY
-        const dateParts = scheduleDate.split('-');
-        const formattedDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
-        
-        // Obter o preço do serviço atual
-        const servicePrice = servicePrices[currentService] || 'Preço a consultar';
-        
-        const message = `Olá, gostaria de agendar o serviço *${currentService}*.\nPreço: *${servicePrice}*\nNome: ${clientName}\nData: ${formattedDate}\nHorário: ${scheduleTime}`;
-        const whatsappUrl = `https://wa.me/${contactPerson}?text=${encodeURIComponent(message)}`;
-        window.open(whatsappUrl, '_blank');
+                const message = `Olá, gostaria de agendar o serviço *${currentService}*.\nNome: ${clientName}\nData: ${formattedDate}\nHorário: ${scheduleTime}`;
+                const whatsappUrl = `https://wa.me/${contactPerson}?text=${encodeURIComponent(message)}`;
+                window.open(whatsappUrl, '_blank');
 
-        // Fechar o modal e resetar o formulário
-        modal.style.display = 'none';
-        form.reset();
-    } else {
-        alert("Por favor, preencha todos os campos!");
-    }
-});
+                // Fechar o modal e resetar o formulário
+                modal.style.display = 'none';
+                form.reset();
+            } else {
+                alert("Por favor, preencha todos os campos!");
+            }
+        });
     </script>
 </body>
 </html>
